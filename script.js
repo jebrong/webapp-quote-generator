@@ -2,6 +2,17 @@ const author = document.querySelector("#author");
 const quote = document.querySelector("#quote");
 const quoteButton = document.querySelector("#new-quote");
 const twitterButton = document.querySelector("#twitter");
+const loader = document.querySelector(".loader");
+const container = document.querySelector(".quote-container");
+
+const loading = () => {
+  loader.hidden = false;
+  container.hidden = true;
+};
+const complete = () => {
+  loader.hidden = !false;
+  container.hidden = !true;
+};
 
 let apiQuotes = [];
 
@@ -21,9 +32,11 @@ const addQuote = () => {
 
   quote.innerText = selectedQuote;
   author.innerText = selectedAuthor;
+  complete();
 };
 
 const getQuotes = async () => {
+  loading();
   const apiUrl = "https://type.fit/api/quotes";
   try {
     let response = await fetch(apiUrl);
